@@ -20,18 +20,17 @@ When the process is dead(not responding), its child process will be killed by th
 ### Preparation
 Just make a new project IN your solution and copy codes in Program.cs of WatchDogMain project.
 Then edit build path of this new project to be same build path as your main project. For example, I set all build path of these 3 projects like this:
-`
-Debug build path: ..\bin\Debug\
-Release build path: ..\bin\Release\
-`
+* Debug build path: `..\bin\Debug\`
+* Release build path: `..\bin\Release\`
+
 This will make your program easy to launch your own WatchDog program because they are in same directory. 
 
 ### Code usage
 First, check Program.cs in my WatchDogTargetParent project. You should manually start WatchDogMain.exe with passing process ID of target parent process like following code:
-`
-var PID = Process.GetCurrentProcess().Id;
+```
+var PID = Process.GetCurrentProcess().Id;  
 Process watchdogProcess = Process.Start("WatchDogMain.exe", $"{PID}");
-`
+```
 Then the watchdog program will find out your process and regularly check if it's dead or not. If your process is dead, then its child process will be killed and the watchdog ends.
 
 ### Possible faulty situation
